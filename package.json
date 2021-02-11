@@ -1,0 +1,23 @@
+{
+  "name": "incart-public-events",
+  "version": "0.0.1",
+  "description": "inCart's Public Event definition in typescript",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muze-innovation/incart-public-events.git"
+  },
+  "keywords": [
+    "incart"
+  ],
+  "author": "peat <kittiphat@muze.co.th>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muze-innovation/incart-public-events/issues"
+  },
+  "homepage": "https://github.com/muze-innovation/incart-public-events#readme"
+}
