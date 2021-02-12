@@ -5,8 +5,16 @@ export interface InCartPublicBaseEvent {
   storeId: string
 }
 
+export interface Stock {
+  sku: string
+  qty: number | null
+  productId: string
+  stockType: string
+}
+
 export interface InCartPublicUpdateStockEventPayload {
-  
+  stocks: Stock[]
+  updateIn: string
 }
 
 export interface InCartPublicUpdateStocksEvent extends InCartPublicBaseEvent {
