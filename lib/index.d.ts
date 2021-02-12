@@ -1,6 +1,3 @@
-export interface InCartPublicBaseEvent {
-    storeId: string;
-}
 export interface Stock {
     sku: string;
     qty: number | null;
@@ -8,17 +5,17 @@ export interface Stock {
     stockType: string;
 }
 export interface InCartPublicUpdateStockEventPayload {
+    event: 'updateStock';
     stocks: Stock[];
     updateIn: string;
 }
-export interface InCartPublicUpdateStocksEvent extends InCartPublicBaseEvent {
-    payloads: InCartPublicUpdateStockEventPayload[];
-    event: 'updateStock';
+export interface InCartPublicPaidOrderEventPayload {
+    event: 'paidOrder';
+    orderToken: string;
+    orderId: number;
 }
-export interface InCartPublicUpdateOrderEventPayload {
+export declare type IncartPublicHookPayload = InCartPublicUpdateStockEventPayload | InCartPublicPaidOrderEventPayload;
+export interface InCartPublicEvent {
+    storeId: string;
+    payloads: IncartPublicHookPayload[];
 }
-export interface InCartPublicUpdateOrdersEvent extends InCartPublicBaseEvent {
-    payloads: InCartPublicUpdateOrderEventPayload[];
-    event: 'updateOrder';
-}
-export declare type InCartPublicEvent = InCartPublicUpdateStocksEvent | InCartPublicUpdateOrdersEvent;
