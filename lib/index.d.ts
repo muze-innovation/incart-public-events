@@ -1,24 +1,40 @@
-export interface InCartPublicBaseEvent {
-    storeId: string;
-}
+export type IncartPublicHookEventType =
+  | 'customerRegister'
+  | 'createOrder'
+  | 'cancelOrder'
+  | 'updateOrder'
+  | 'updateStock'
+  | 'paidOrder'
+  | 'sendNotification'
+
 export interface Stock {
-    sku: string;
-    qty: number | null;
-    productId: string;
-    stockType: string;
+  sku: string
+  qty: number | null
+  productId: string
+  stockType: string
+}
+
+export interface InCartPublicUpdateStockData {
+  stocks: Stock[]
+  updateIn: string
 }
 export interface InCartPublicUpdateStockEventPayload {
-    stocks: Stock[];
-    updateIn: string;
+  data: InCartPublicUpdateStockData[]
+  event: 'updateStock'
 }
-export interface InCartPublicUpdateStocksEvent extends InCartPublicBaseEvent {
-    payloads: InCartPublicUpdateStockEventPayload[];
-    event: 'updateStock';
+
+export interface InCartPublicPaidOrderData {
+  orderToken: string
+  orderId: number
 }
-export interface InCartPublicUpdateOrderEventPayload {
+
+export interface InCartPublicPaidOrderEventPayload {
+  data: InCartPublicPaidOrderData[]
+  event: 'paidOrder'
 }
-export interface InCartPublicUpdateOrdersEvent extends InCartPublicBaseEvent {
-    payloads: InCartPublicUpdateOrderEventPayload[];
-    event: 'updateOrder';
+
+export type IncartPublicHookPayload = InCartPublicUpdateStockEventPayload | InCartPublicPaidOrderEventPayload
+export interface InCartPublicEvent {
+  storeId: string
+  payloads: IncartPublicHookPayload[]
 }
-export declare type InCartPublicEvent = InCartPublicUpdateStocksEvent | InCartPublicUpdateOrdersEvent;
