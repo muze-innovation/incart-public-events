@@ -115,7 +115,8 @@ export interface InCartPublicUpdateOrderEventPayload extends InCartPublicUpdateO
     orderItems?: OrderItem[];
     orderStatus?: 'payment_processing' | 'paid' | 'waiting_to_ship' | 'shipped' | 'arrived' | 'collected' | 'completed' | 'canceled';
 }
-export declare type InCartPublicHookPayload = InCartPublicUpdateStockEventPayload | InCartPublicPaidOrderEventPayload | InCartPublicUpdateOrderShippingAddressEventPayload | InCartPublicUpdateOrderBillingAddressEventPayload | InCartPublicDeleteOrderBillingAddressEventPayload | InCartPublicUpdateOrderShippingMethodEventPayload | InCartPublicUpdateOrderPaymentMethodEventPayload | InCartPublicUpdateOrderReferenceEventPayload | InCartPublicUpdateOrderEventPayload;
+export declare type InCartPublicUpdateOrderAnyEventPayload = InCartPublicPaidOrderEventPayload | InCartPublicUpdateOrderShippingAddressEventPayload | InCartPublicUpdateOrderBillingAddressEventPayload | InCartPublicDeleteOrderBillingAddressEventPayload | InCartPublicUpdateOrderShippingMethodEventPayload | InCartPublicUpdateOrderPaymentMethodEventPayload | InCartPublicUpdateOrderReferenceEventPayload | InCartPublicUpdateOrderEventPayload;
+export declare type InCartPublicHookPayload = InCartPublicUpdateStockEventPayload | InCartPublicUpdateOrderAnyEventPayload;
 export interface InCartPublicEvent {
     storeId: string;
     payloads: InCartPublicHookPayload[];

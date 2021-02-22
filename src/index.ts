@@ -157,8 +157,7 @@ export interface InCartPublicUpdateOrderEventPayload
     | 'canceled'
 }
 
-export type InCartPublicHookPayload =
-  | InCartPublicUpdateStockEventPayload
+export type InCartPublicUpdateOrderAnyEventPayload =
   | InCartPublicPaidOrderEventPayload
   | InCartPublicUpdateOrderShippingAddressEventPayload
   | InCartPublicUpdateOrderBillingAddressEventPayload
@@ -167,6 +166,10 @@ export type InCartPublicHookPayload =
   | InCartPublicUpdateOrderPaymentMethodEventPayload
   | InCartPublicUpdateOrderReferenceEventPayload
   | InCartPublicUpdateOrderEventPayload
+
+export type InCartPublicHookPayload =
+  | InCartPublicUpdateStockEventPayload
+  | InCartPublicUpdateOrderAnyEventPayload
 
 export interface InCartPublicEvent {
   storeId: string
