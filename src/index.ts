@@ -96,18 +96,10 @@ export interface InCartPublicPaidOrderEventPayload
   event: 'paidOrder'
 }
 
-export interface IncartPublicUpdateOrderStatusEventPayload
+export interface InCartPublicUpdateOrderStatusEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'updateOrderStatus'
-  orderStatus:
-    | 'payment_processing'
-    | 'paid'
-    | 'waiting_to_ship'
-    | 'shipped'
-    | 'arrived'
-    | 'collected'
-    | 'completed'
-    | 'canceled'
+  orderStatus: InCartOrderStatus
 }
 
 export interface InCartPublicUpdateOrderShippingAddressEventPayload
@@ -169,6 +161,7 @@ export type InCartPublicUpdateOrderAnyEventPayload =
   | InCartPublicUpdateOrderShippingMethodEventPayload
   | InCartPublicUpdateOrderPaymentMethodEventPayload
   | InCartPublicUpdateOrderReferenceEventPayload
+  | InCartPublicUpdateOrderStatusEventPayload
   | InCartPublicUpdateOrderEventPayload
 
 export type InCartPublicHookPayload =
