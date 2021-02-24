@@ -120,9 +120,24 @@ export interface InCartPublicUpdateOrderBillingAddressEventPayload
   billingAddress: BillingAddress
 }
 
+export interface InCartPublicDeleteOrderReferenceEventPayload
+  extends InCartPublicUpdateOrderBasePayload {
+  event: 'deleteOrderReference'
+}
+
 export interface InCartPublicDeleteOrderBillingAddressEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'deleteOrderBillingAddress'
+}
+
+export interface InCartPublicDeleteOrderPaymentMethodEventPayload
+  extends InCartPublicUpdateOrderBasePayload {
+  event: 'deleteOrderPaymentMethod'
+}
+
+export interface InCartPublicDeleteOrderShippingMethodEventPayload
+  extends InCartPublicUpdateOrderBasePayload {
+  event: 'deleteOrderShippingMethod'
 }
 
 export interface InCartPublicUpdateOrderShippingMethodEventPayload
@@ -162,7 +177,10 @@ export type InCartPublicUpdateOrderAnyEventPayload =
   | InCartPublicPaidOrderEventPayload
   | InCartPublicUpdateOrderShippingAddressEventPayload
   | InCartPublicUpdateOrderBillingAddressEventPayload
+  | InCartPublicDeleteOrderReferenceEventPayload
   | InCartPublicDeleteOrderBillingAddressEventPayload
+  | InCartPublicDeleteOrderPaymentMethodEventPayload
+  | InCartPublicDeleteOrderShippingMethodEventPayload
   | InCartPublicUpdateOrderShippingMethodEventPayload
   | InCartPublicUpdateOrderPaymentMethodEventPayload
   | InCartPublicUpdateOrderReferenceEventPayload
