@@ -96,6 +96,11 @@ export interface InCartPublicPaidOrderEventPayload
   event: 'paidOrder'
 }
 
+export interface InCartPublicCancelOrderEventPayload
+  extends InCartPublicUpdateOrderBasePayload {
+  event: 'cancelOrder'    
+}
+
 export interface InCartPublicUpdateOrderStatusEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'updateOrderStatus'
@@ -162,6 +167,7 @@ export type InCartPublicUpdateOrderAnyEventPayload =
   | InCartPublicUpdateOrderPaymentMethodEventPayload
   | InCartPublicUpdateOrderReferenceEventPayload
   | InCartPublicUpdateOrderStatusEventPayload
+  | InCartPublicCancelOrderEventPayload
   | InCartPublicUpdateOrderEventPayload
 
 export type InCartPublicHookPayload =
