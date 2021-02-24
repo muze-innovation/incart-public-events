@@ -71,6 +71,16 @@ export interface OrderItem {
   stockType: 'backorder' | 'infinite' | 'normal'
 }
 
+export type InCartOrderStatus =
+  | 'payment_processing'
+  | 'paid'
+  | 'waiting_to_ship'
+  | 'shipped'
+  | 'arrived'
+  | 'collected'
+  | 'completed'
+  | 'canceled'
+
 export interface InCartPublicUpdateOrderBasePayload {
   orderToken: string
   orderId: number
@@ -104,6 +114,7 @@ export interface InCartPublicUpdateOrderShippingAddressEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'updateOrderShippingAddress'
   shippingAddress: ShippingAddress
+  shippingCost: number
 }
 
 export interface InCartPublicUpdateOrderBillingAddressEventPayload
@@ -121,6 +132,7 @@ export interface InCartPublicUpdateOrderShippingMethodEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'updateOrderShippingMethod'
   shippingMethodId: number
+  shippingCost: number
 }
 
 export interface InCartPublicUpdateOrderPaymentMethodEventPayload
@@ -138,23 +150,15 @@ export interface InCartPublicUpdateOrderReferenceEventPayload
 export interface InCartPublicUpdateOrderEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'updateOrder'
-  customerName?: string
-  reference?: string
-  shippingMethodId?: string
-  paymentMethodId?: string
-  shippingCost?: number
-  shippingAddress?: ShippingAddress
-  billingAddress?: BillingAddress
-  orderItems?: OrderItem[]
-  orderStatus?:
-    | 'payment_processing'
-    | 'paid'
-    | 'waiting_to_ship'
-    | 'shipped'
-    | 'arrived'
-    | 'collected'
-    | 'completed'
-    | 'canceled'
+  customerName: string
+  reference: string
+  shippingMethodId: number
+  paymentMethodId: number
+  shippingCost: number
+  shippingAddress: ShippingAddress
+  billingAddress: BillingAddress
+  orderItems: OrderItem[]
+  orderStatus: InCartOrderStatus
 }
 
 export type InCartPublicUpdateOrderAnyEventPayload =
