@@ -72,6 +72,7 @@ export interface OrderItem {
 }
 
 export type InCartOrderStatus =
+  | 'new'
   | 'payment_processing'
   | 'paid'
   | 'waiting_to_ship'
@@ -159,6 +160,13 @@ export interface InCartPublicUpdateOrderReferenceEventPayload
   reference: string
 }
 
+export interface InCartPublicUpdateOrderShipmentEventPayload
+  extends InCartPublicUpdateOrderBasePayload {
+  event: 'updateOrderShipment'
+  trackNumber: string
+  trackingUrl: string
+}
+
 export interface InCartPublicUpdateOrderEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'updateOrder'
@@ -186,6 +194,7 @@ export type InCartPublicUpdateOrderAnyEventPayload =
   | InCartPublicUpdateOrderReferenceEventPayload
   | InCartPublicUpdateOrderStatusEventPayload
   | InCartPublicCancelOrderEventPayload
+  | InCartPublicUpdateOrderShipmentEventPayload
   | InCartPublicUpdateOrderEventPayload
 
 export type InCartPublicHookPayload =
