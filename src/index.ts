@@ -191,6 +191,7 @@ export interface InCartPublicUpdateOrderEventPayload
   shippingMethodId: number
   paymentMethodId: number
   shippingCost: number
+  shippingType: InCartShippingType
   shippingAddress: ShippingAddress
   billingAddress: BillingAddress
   orderItems: OrderItem[]
