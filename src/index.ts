@@ -82,6 +82,14 @@ export type InCartOrderStatus =
   | 'completed'
   | 'canceled'
 
+export type InCartShippingType =
+  | 'flatrate'
+  | 'byItem'
+  | 'byProvince'
+  | 'byDistance'
+  | 'byProvider'
+  | 'pickup'
+
 export interface InCartPublicUpdateOrderBasePayload {
   orderToken: string
   orderId: number
@@ -153,6 +161,7 @@ export interface InCartPublicUpdateOrderShippingMethodEventPayload
   event: 'updateOrderShippingMethod'
   shippingMethodId: number
   shippingCost: number
+  shippingType: InCartShippingType
 }
 
 export interface InCartPublicUpdateOrderPaymentMethodEventPayload
@@ -182,6 +191,7 @@ export interface InCartPublicUpdateOrderEventPayload
   shippingMethodId: number
   paymentMethodId: number
   shippingCost: number
+  shippingType: InCartShippingType
   shippingAddress: ShippingAddress
   billingAddress: BillingAddress
   orderItems: OrderItem[]
