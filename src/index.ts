@@ -48,9 +48,12 @@ export interface BillingAddress {
   companyBranchId?: string
 }
 
-export interface OrderItem {
-  orderId: number
+export interface BaseOrderItem {
   sku: string
+}
+
+export interface OrderItem extends BaseOrderItem {
+  orderId: number
   originalPrice: number
   name: string
   price: number
@@ -69,6 +72,10 @@ export interface OrderItem {
   qtyOrdered: number
   newProductStockQty: number | null
   stockType: 'backorder' | 'infinite' | 'normal'
+}
+
+export interface OrderItemMDR extends BaseOrderItem {
+  mdr: string
 }
 
 export type InCartOrderStatus =
@@ -103,6 +110,7 @@ export interface InCartPublicUpdateStockEventPayload {
 export interface InCartPublicPaidOrderEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'paidOrder'
+  orderItems: OrderItemMDR[]
 }
 
 export interface InCartPublicCancelOrderEventPayload
