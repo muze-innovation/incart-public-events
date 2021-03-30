@@ -76,6 +76,8 @@ export interface OrderItem extends BaseOrderItem {
 
 export interface OrderItemMDR extends BaseOrderItem {
   mdr: string
+  bank: string
+  installmentPeriod: number
 }
 
 export type InCartOrderStatus =
