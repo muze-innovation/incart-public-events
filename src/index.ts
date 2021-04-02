@@ -170,6 +170,8 @@ export interface InCartPublicUpdateOrderShippingMethodEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'updateOrderShippingMethod'
   shippingMethodId: number
+  shippingMethodNameTH: string
+  shippingMethodNameEN: string
   shippingCost: number
   shippingType: InCartShippingType
 }
@@ -193,12 +195,25 @@ export interface InCartPublicUpdateOrderShipmentEventPayload
   trackingUrl: string
 }
 
+export interface InCartPublicUpdateOrderCustomerNote
+  extends InCartPublicUpdateOrderBasePayload {
+  event: 'updateOrderCustomerNote'
+  note: string
+}
+
+export interface InCartPublicDeleteOrderCustomerNote
+  extends InCartPublicUpdateOrderBasePayload {
+  event: 'deleteOrderCustomerNote'
+}
+
 export interface InCartPublicUpdateOrderEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'updateOrder'
   customerName: string
   reference: string
   shippingMethodId: number
+  shippingMethodNameTH: string
+  shippingMethodNameEN: string
   paymentMethodId: number
   shippingCost: number
   shippingType: InCartShippingType
@@ -223,6 +238,8 @@ export type InCartPublicUpdateOrderAnyEventPayload =
   | InCartPublicCancelOrderEventPayload
   | InCartPublicRefundOrderEventPayload
   | InCartPublicUpdateOrderShipmentEventPayload
+  | InCartPublicUpdateOrderCustomerNote
+  | InCartPublicDeleteOrderCustomerNote
   | InCartPublicUpdateOrderEventPayload
 
 export type InCartPublicHookPayload =
