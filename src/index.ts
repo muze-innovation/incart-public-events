@@ -221,6 +221,7 @@ export interface InCartPublicUpdateOrderEventPayload
   billingAddress: BillingAddress
   orderItems: OrderItem[]
   orderStatus: InCartOrderStatus
+  note: string | null
 }
 
 export type InCartPublicUpdateOrderAnyEventPayload =
