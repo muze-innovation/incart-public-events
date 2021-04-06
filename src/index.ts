@@ -198,12 +198,7 @@ export interface InCartPublicUpdateOrderShipmentEventPayload
 export interface InCartPublicUpdateOrderCustomerNote
   extends InCartPublicUpdateOrderBasePayload {
   event: 'updateOrderCustomerNote'
-  note: string
-}
-
-export interface InCartPublicDeleteOrderCustomerNote
-  extends InCartPublicUpdateOrderBasePayload {
-  event: 'deleteOrderCustomerNote'
+  note: string | null
 }
 
 export interface InCartPublicUpdateOrderEventPayload
@@ -240,7 +235,6 @@ export type InCartPublicUpdateOrderAnyEventPayload =
   | InCartPublicRefundOrderEventPayload
   | InCartPublicUpdateOrderShipmentEventPayload
   | InCartPublicUpdateOrderCustomerNote
-  | InCartPublicDeleteOrderCustomerNote
   | InCartPublicUpdateOrderEventPayload
 
 export type InCartPublicHookPayload =
