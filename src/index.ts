@@ -113,6 +113,7 @@ export interface InCartPublicPaidOrderEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'paidOrder'
   orderItems: OrderItemMDR[]
+  couponCode: string
 }
 
 export interface InCartPublicCancelOrderEventPayload
