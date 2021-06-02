@@ -84,6 +84,50 @@ export interface OrderItemMDR extends BaseOrderItem {
   itemDiscountAmount: number
 }
 
+export interface InCartOrderAppliedRule {
+  action: 'by_fixed' | 'by_percent'
+  /**
+   * Serizliaed action
+   */
+  actionSerialized: string
+  /**
+   * 0 - for not applicable to shipping, 1 otherwise
+   */
+  applyToShipping: number
+  /**
+   * Serialized condition
+   */
+  condition: string
+  /**
+   * 
+   */
+  coupon: { id: number, code: string, couponUsage: [] }[]
+  /**
+   * Description
+   */
+  description: string | null
+  /**
+   * Discount value
+   */
+  discountAmount: number
+  /**
+   * primary key of ruleId
+   */
+  id: number
+  /**
+   * Boolean to denote if it is active or not
+   */
+  isActive: number
+  /**
+   * Coupon name
+   */
+  name: string
+  /**
+   * Type
+   */
+  type: 'manual'
+}
+
 export type InCartOrderStatus =
   | 'new'
   | 'payment_processing'
@@ -118,7 +162,7 @@ export interface InCartPublicPaidOrderEventPayload
   event: 'paidOrder'
   orderItems: OrderItemMDR[]
   couponCode: string | null
-  inCartDiscountRules: any[]
+  inCartDiscountRules: InCartOrderAppliedRule[]
   wholeCartDiscountAmount: number
   shippingDiscountAmount: number
 }
