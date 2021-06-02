@@ -42,9 +42,11 @@ export interface BillingAddress {
     companyBranch?: string;
     companyBranchId?: string;
 }
-export interface OrderItem {
-    orderId: number;
+export interface BaseOrderItem {
     sku: string;
+}
+export interface OrderItem extends BaseOrderItem {
+    orderId: number;
     originalPrice: number;
     name: string;
     price: number;
@@ -64,6 +66,17 @@ export interface OrderItem {
     newProductStockQty: number | null;
     stockType: 'backorder' | 'infinite' | 'normal';
 }
+export interface OrderItemMDR extends BaseOrderItem {
+    mdr: string | null;
+    bank?: string;
+    installmentPeriod?: number;
+    /**
+     * Per Line Item's discounted amount
+     */
+    itemDiscountAmount: number;
+}
+export declare type InCartOrderStatus = 'new' | 'payment_processing' | 'paid' | 'waiting_to_ship' | 'shipped' | 'arrived' | 'collected' | 'completed' | 'canceled';
+export declare type InCartShippingType = 'flatrate' | 'byItem' | 'byProvince' | 'byDistance' | 'byProvider' | 'pickup';
 export interface InCartPublicUpdateOrderBasePayload {
     orderToken: string;
     orderId: number;
@@ -75,25 +88,52 @@ export interface InCartPublicUpdateStockEventPayload {
 }
 export interface InCartPublicPaidOrderEventPayload extends InCartPublicUpdateOrderBasePayload {
     event: 'paidOrder';
+    orderItems: OrderItemMDR[];
+    couponCode: string | null;
+    inCartDiscountRules: any[];
+    wholeCartDiscountAmount: number;
+    shippingDiscountAmount: number;
 }
-export interface IncartPublicUpdateOrderStatusEventPayload extends InCartPublicUpdateOrderBasePayload {
+export interface InCartPublicCancelOrderEventPayload extends InCartPublicUpdateOrderBasePayload {
+    event: 'cancelOrder';
+}
+export interface InCartPublicRefundOrderEventPayload extends InCartPublicUpdateOrderBasePayload {
+    event: 'refundOrder';
+    paymentMethodId: number;
+    actionOwner: string;
+}
+export interface InCartPublicUpdateOrderStatusEventPayload extends InCartPublicUpdateOrderBasePayload {
     event: 'updateOrderStatus';
-    orderStatus: 'payment_processing' | 'paid' | 'waiting_to_ship' | 'shipped' | 'arrived' | 'collected' | 'completed' | 'canceled';
+    orderStatus: InCartOrderStatus;
 }
 export interface InCartPublicUpdateOrderShippingAddressEventPayload extends InCartPublicUpdateOrderBasePayload {
     event: 'updateOrderShippingAddress';
     shippingAddress: ShippingAddress;
+    shippingCost: number;
 }
 export interface InCartPublicUpdateOrderBillingAddressEventPayload extends InCartPublicUpdateOrderBasePayload {
     event: 'updateOrderBillingAddress';
     billingAddress: BillingAddress;
 }
+export interface InCartPublicDeleteOrderReferenceEventPayload extends InCartPublicUpdateOrderBasePayload {
+    event: 'deleteOrderReference';
+}
 export interface InCartPublicDeleteOrderBillingAddressEventPayload extends InCartPublicUpdateOrderBasePayload {
     event: 'deleteOrderBillingAddress';
+}
+export interface InCartPublicDeleteOrderPaymentMethodEventPayload extends InCartPublicUpdateOrderBasePayload {
+    event: 'deleteOrderPaymentMethod';
+}
+export interface InCartPublicDeleteOrderShippingMethodEventPayload extends InCartPublicUpdateOrderBasePayload {
+    event: 'deleteOrderShippingMethod';
 }
 export interface InCartPublicUpdateOrderShippingMethodEventPayload extends InCartPublicUpdateOrderBasePayload {
     event: 'updateOrderShippingMethod';
     shippingMethodId: number;
+    shippingMethodNameTH: string;
+    shippingMethodNameEN: string;
+    shippingCost: number;
+    shippingType: InCartShippingType;
 }
 export interface InCartPublicUpdateOrderPaymentMethodEventPayload extends InCartPublicUpdateOrderBasePayload {
     event: 'updateOrderPaymentMethod';
@@ -103,19 +143,32 @@ export interface InCartPublicUpdateOrderReferenceEventPayload extends InCartPubl
     event: 'updateOrderReference';
     reference: string;
 }
+export interface InCartPublicUpdateOrderShipmentEventPayload extends InCartPublicUpdateOrderBasePayload {
+    event: 'updateOrderShipment';
+    trackNumber: string;
+    trackingUrl: string;
+}
+export interface InCartPublicUpdateOrderCustomerNote extends InCartPublicUpdateOrderBasePayload {
+    event: 'updateOrderCustomerNote';
+    note: string | null;
+}
 export interface InCartPublicUpdateOrderEventPayload extends InCartPublicUpdateOrderBasePayload {
     event: 'updateOrder';
-    customerName?: string;
-    reference?: string;
-    shippingMethodId?: string;
-    paymentMethodId?: string;
-    shippingCost?: number;
-    shippingAddress?: ShippingAddress;
-    billingAddress?: BillingAddress;
-    orderItems?: OrderItem[];
-    orderStatus?: 'payment_processing' | 'paid' | 'waiting_to_ship' | 'shipped' | 'arrived' | 'collected' | 'completed' | 'canceled';
+    customerName: string;
+    reference: string;
+    shippingMethodId: number;
+    shippingMethodNameTH: string;
+    shippingMethodNameEN: string;
+    paymentMethodId: number;
+    shippingCost: number;
+    shippingType: InCartShippingType;
+    shippingAddress: ShippingAddress;
+    billingAddress: BillingAddress;
+    orderItems: OrderItem[];
+    orderStatus: InCartOrderStatus;
+    note: string | null;
 }
-export declare type InCartPublicUpdateOrderAnyEventPayload = InCartPublicPaidOrderEventPayload | InCartPublicUpdateOrderShippingAddressEventPayload | InCartPublicUpdateOrderBillingAddressEventPayload | InCartPublicDeleteOrderBillingAddressEventPayload | InCartPublicUpdateOrderShippingMethodEventPayload | InCartPublicUpdateOrderPaymentMethodEventPayload | InCartPublicUpdateOrderReferenceEventPayload | InCartPublicUpdateOrderEventPayload;
+export declare type InCartPublicUpdateOrderAnyEventPayload = InCartPublicPaidOrderEventPayload | InCartPublicUpdateOrderShippingAddressEventPayload | InCartPublicUpdateOrderBillingAddressEventPayload | InCartPublicDeleteOrderReferenceEventPayload | InCartPublicDeleteOrderBillingAddressEventPayload | InCartPublicDeleteOrderPaymentMethodEventPayload | InCartPublicDeleteOrderShippingMethodEventPayload | InCartPublicUpdateOrderShippingMethodEventPayload | InCartPublicUpdateOrderPaymentMethodEventPayload | InCartPublicUpdateOrderReferenceEventPayload | InCartPublicUpdateOrderStatusEventPayload | InCartPublicCancelOrderEventPayload | InCartPublicRefundOrderEventPayload | InCartPublicUpdateOrderShipmentEventPayload | InCartPublicUpdateOrderCustomerNote | InCartPublicUpdateOrderEventPayload;
 export declare type InCartPublicHookPayload = InCartPublicUpdateStockEventPayload | InCartPublicUpdateOrderAnyEventPayload;
 export interface InCartPublicEvent {
     storeId: string;

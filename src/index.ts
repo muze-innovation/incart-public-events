@@ -78,6 +78,10 @@ export interface OrderItemMDR extends BaseOrderItem {
   mdr: string | null
   bank?: string
   installmentPeriod?: number
+  /**
+   * Per Line Item's discounted amount
+   */
+  itemDiscountAmount: number
 }
 
 export type InCartOrderStatus =
@@ -113,7 +117,10 @@ export interface InCartPublicPaidOrderEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'paidOrder'
   orderItems: OrderItemMDR[]
-  couponCode: string
+  couponCode: string | null
+  inCartDiscountRules: any[]
+  wholeCartDiscountAmount: number
+  shippingDiscountAmount: number
 }
 
 export interface InCartPublicCancelOrderEventPayload
