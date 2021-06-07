@@ -75,8 +75,21 @@ export interface OrderItem extends BaseOrderItem {
 }
 
 export interface OrderItemMDR extends BaseOrderItem {
+  /**
+   * This is merely a configuration applied to the Order NOT THE ACTUAL VALUE.
+   */
   mdr: string | null
+  /**
+   * This is merely a configuration applied to the Order NOT THE ACTUAL VALUE.
+   */
+  mdrType: 'percent' | 'fixed'
+  /**
+   * This is merely a configuration applied to the Order NOT THE ACTUAL VALUE.
+   */
   bank?: string
+  /**
+   * This is merely a configuration applied to the Order NOT THE ACTUAL VALUE.
+   */
   installmentPeriod?: number
   /**
    * Per Line Item's discounted amount
