@@ -1,6 +1,41 @@
 // Type definitions for incart
 // Definitions by: Kittiphat S <https://github.com/peatiscoding>
 
+interface InCartPublicBaseDiscount {
+  applicableRuleUid: string | number
+}
+
+export interface InCartPublicItemDiscount extends InCartPublicBaseDiscount {
+  uid: string
+  perLineDiscountedAmount: number
+  setFree: boolean
+  isPriceTier: boolean
+}
+
+export interface InCartPublicWholeCartDiscount extends InCartPublicBaseDiscount {
+  discountedAmount: number
+  setFree: boolean
+}
+
+export interface InCartPublicShippingDiscount extends InCartPublicBaseDiscount {
+  uid: string
+  discountedAmount: number
+  setFree: boolean
+}
+
+export interface InCartPublicUnapplicableRule {
+  uid: string | number
+  errors: string[]
+}
+
+export interface InCartPublicDiscountMeta {
+  applicableRuleUids: number[]
+  itemDiscounts: InCartPublicItemDiscount[]
+  wholeCartDiscounts: InCartPublicWholeCartDiscount[]
+  shippingDiscounts: InCartPublicShippingDiscount[]
+  unapplicableRules: InCartPublicUnapplicableRule[]
+}
+
 export interface Stock {
   sku: string
   qty: number | null
@@ -170,6 +205,7 @@ export interface InCartPublicUpdateStockEventPayload {
   stocks: Stock[]
   updateIn: string
 }
+
 export interface InCartPublicPaidOrderEventPayload
   extends InCartPublicUpdateOrderBasePayload {
   event: 'paidOrder'
@@ -178,6 +214,7 @@ export interface InCartPublicPaidOrderEventPayload
   inCartDiscountRules: InCartOrderAppliedRule[]
   wholeCartDiscountAmount: number
   shippingDiscountAmount: number
+  discountMeta: InCartPublicDiscountMeta | null
 }
 
 export interface InCartPublicCancelOrderEventPayload
