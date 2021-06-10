@@ -174,6 +174,14 @@ export interface InCartOrderAppliedRule {
    * Type
    */
   type: 'manual'
+  /**
+   * Start Date
+   */
+  fromDate: string
+  /**
+   * End Date
+   */
+  toDate: string
 }
 
 export type InCartOrderStatus =
