@@ -223,6 +223,7 @@ export interface InCartPublicPaidOrderEventPayload
   wholeCartDiscountAmount: number
   shippingDiscountAmount: number
   discountMeta: InCartPublicDiscountMeta | null
+  paymentMethodId: number
 }
 
 export interface InCartPublicCancelOrderEventPayload
